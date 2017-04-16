@@ -24,8 +24,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    puzzle.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    puzzle.h
 
 FORMS    += mainwindow.ui
+
+DISTFILES +=
+
+RESOURCES +=

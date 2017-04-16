@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLabel>
+#include "puzzle.h"
 
 namespace Ui {
 class MainWindow;
