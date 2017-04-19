@@ -21,9 +21,9 @@ public:
     PuzzlePiece * getLastPiece();
     void setLastPiece(PuzzlePiece *);
     QGridLayout *getGrid();
-    void startNewGame();
 
 public slots:
+    void startNewGame();
     void pieceClicked(PuzzlePiece *);
 
 protected:

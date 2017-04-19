@@ -88,7 +88,6 @@ void Puzzle::movePiece(PuzzlePiece *piece)
 
 bool Puzzle::canMove(PuzzlePiece *piece)
 {
-    qDebug() << "canMove entered.";
     uint loc_clicked = piece->getCurrentIndex();
     uint loc_empty = this->getLastPiece()->getCurrentIndex();
     int difference = loc_clicked - loc_empty;
@@ -121,7 +120,6 @@ void Puzzle::swap(PuzzlePiece *a, PuzzlePiece *b)
 
 void Puzzle::pieceClicked(PuzzlePiece *piece)
 {
-    qDebug() << "pieceClicked entered.";
     movePiece(piece);
     rebuildGrid();
     checkWin();
@@ -156,6 +154,8 @@ void Puzzle::checkWin()
 
 void Puzzle::startNewGame()
 {
+    qDebug() << "Starting new game";
+
     QTime time = QTime::currentTime();
     qsrand((uint)time.msec());
     uint emptyIndex;

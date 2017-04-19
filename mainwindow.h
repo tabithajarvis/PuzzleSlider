@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QLabel>
+#include <QPushButton>
 #include "puzzle.h"
 
 class MainWindow : public QMainWindow
