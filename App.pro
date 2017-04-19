@@ -32,8 +32,8 @@ HEADERS  += mainwindow.h \
     puzzle.h \
     puzzlepiece.h
 
-FORMS    += mainwindow.ui
-
 DISTFILES +=
 
 RESOURCES +=
+
+FORMS +=
