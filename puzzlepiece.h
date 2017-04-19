@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QLabel>
+#include <QStyle>
 #include <QMouseEvent>
 
 class PuzzlePiece : public QLabel
@@ -16,7 +17,7 @@ public:
     uint getFinalIndex();
 
 protected:
-    void mouseReleaseEvent(QMouseEvent *e);
+    void mousePressEvent(QMouseEvent *e);
 
 private:
     uint currentIndex;

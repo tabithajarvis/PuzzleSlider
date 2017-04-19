@@ -1,6 +1,7 @@
 #ifndef PUZZLE_H
 #define PUZZLE_H
 
+#include <QTime>
 #include <QLabel>
 #include <QGridLayout>
 #include <QMouseEvent>
@@ -17,15 +18,18 @@ public:
     bool addPuzzlePiece(PuzzlePiece *piece);
     PuzzlePiece * getPuzzlePiece(uint);
     void movePiece(PuzzlePiece *);
-    bool canMove(PuzzlePiece *);
     PuzzlePiece * getLastPiece();
     void setLastPiece(PuzzlePiece *);
-    void swap(PuzzlePiece *, PuzzlePiece *);
-    void rebuildGrid();
     QGridLayout *getGrid();
+    void startNewGame();
 
 public slots:
     void pieceClicked(PuzzlePiece *);
+
+protected:
+    void rebuildGrid();
+    void swap(PuzzlePiece *, PuzzlePiece *);
+    bool canMove(PuzzlePiece *);
 
 private:
     uint puzzleSize;

@@ -21,8 +21,6 @@ Puzzle::Puzzle(QMainWindow *parent, uint size) : QWidget(parent)
         lbl = new PuzzlePiece(this, i);
         this->addPuzzlePiece(lbl);
         lbl->setText(QString::number(lbl->getFinalIndex()+1));
-        lbl->setFrameStyle(QFrame::Panel | QFrame::Raised);
-        lbl->setAlignment(Qt::AlignCenter);
         lbl->setFixedSize(this->width()/this->getPuzzleSize() - this->getPuzzleSize() * 3, this->height()/this->getPuzzleSize() - this->getPuzzleSize() * 3);
         this->grid->addWidget(lbl, i/this->getPuzzleSize(), i%this->getPuzzleSize(), 1, 1, Qt::AlignCenter);
     }
@@ -103,37 +101,89 @@ bool Puzzle::canMove(PuzzlePiece *piece)
 
 void Puzzle::swap(PuzzlePiece *a, PuzzlePiece *b)
 {
-    qDebug() << "In Swap";
+    // Swap position in vector for reconstruction of grid.
     pieces[a->getCurrentIndex()] = b;
     pieces[b->getCurrentIndex()] = a;
 
-    PuzzlePiece *temp = a;
+    // Swap current indices
+    uint temp = a->getCurrentIndex();
     a->setCurrentIndex(b->getCurrentIndex());
-    b->setCurrentIndex(temp->getCurrentIndex());
-
-    this->rebuildGrid();
+    b->setCurrentIndex(temp);
 }
 
 void Puzzle::pieceClicked(PuzzlePiece *piece)
 {
     qDebug() << "pieceClicked entered.";
     movePiece(piece);
+    rebuildGrid();
 }
 
 void Puzzle::rebuildGrid()
 {
     while(!this->grid->isEmpty())
     {
-        qDebug() << "In Loop";
         grid->removeItem(grid->itemAt(0));
     }
 
-    qDebug() << "After While";
     for(uint i=0; i<pieces.size(); i++)
     {
         grid->addWidget(pieces[i], i/this->getPuzzleSize(), i%this->getPuzzleSize(), 1, 1, Qt::AlignCenter);
     }
 
-    grid->update();
+//    grid->update();
 
+}
+
+void Puzzle::startNewGame()
+{
+    QTime time = QTime::currentTime();
+    qsrand((uint)time.msec());
+    uint emptyIndex;
+    uint shuffleCount = 1000;
+
+    while(shuffleCount > 0)
+    {
+        emptyIndex = this->getLastPiece()->getCurrentIndex();
+
+        // Get random move value
+        uint random = qrand() % 4;
+
+        switch(random)
+        {
+            case 0:
+                // Attempt to swap up.
+                if(emptyIndex > this->getPuzzleSize())
+                {
+                    movePiece(this->pieces[emptyIndex - this->getPuzzleSize()]);
+                    shuffleCount--;
+                }
+                break;
+            case 1:
+                // Attempt to swap down.
+                if(emptyIndex < this->getPuzzleSize() * (this->getPuzzleSize() - 1))
+                {
+                    movePiece(this->pieces[emptyIndex + this->getPuzzleSize()]);
+                    shuffleCount--;
+                }
+                break;
+            case 2:
+                // Attempt to swap left
+                if(emptyIndex % this->getPuzzleSize() > 0)
+                {
+                    movePiece(this->pieces[emptyIndex - 1]);
+                    shuffleCount--;
+                }
+                break;
+            default:
+                // Attempt to swap right
+                if(emptyIndex % this->getPuzzleSize() < this->getPuzzleSize() - 1)
+                {
+                    movePiece(this->pieces[emptyIndex + 1]);
+                    shuffleCount--;
+                }
+                break;
+        }
+    }
+
+    this->rebuildGrid();
 }

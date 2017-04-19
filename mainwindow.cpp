@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Add puzzle
     Puzzle *puzzle = new Puzzle(this, 4);
+    puzzle->startNewGame();
 }
 
 MainWindow::~MainWindow()

@@ -7,9 +7,13 @@ PuzzlePiece::PuzzlePiece(QWidget *p, uint final) : QLabel(p)
     QObject::connect(this, SIGNAL(pieceClickEvent(PuzzlePiece *)), this->parent(), SLOT(pieceClicked(PuzzlePiece *)));
     this->finalIndex = final;
     this->currentIndex = final;
+
+    this->setAutoFillBackground(true);
+    this->setFrameStyle(QFrame::Panel | QFrame::Raised);
+    this->setAlignment(Qt::AlignCenter);
 }
 
-void PuzzlePiece::mouseReleaseEvent(QMouseEvent *e)
+void PuzzlePiece::mousePressEvent(QMouseEvent *e)
 {
     if(e)
     {
