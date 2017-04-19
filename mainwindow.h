@@ -2,11 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QMenuBar>
 #include <QLabel>
 #include "puzzle.h"
-#include "puzzlepiece.h"
-
 
 class MainWindow : public QMainWindow
 {

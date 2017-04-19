@@ -30,6 +30,7 @@ protected:
     void rebuildGrid();
     void swap(PuzzlePiece *, PuzzlePiece *);
     bool canMove(PuzzlePiece *);
+    void checkWin();
 
 private:
     uint puzzleSize;
@@ -37,6 +38,8 @@ private:
     PuzzlePiece *lastPiece;
     QGridLayout *grid;
 
+signals:
+    void completed();
 };
 
 #endif // PUZZLE_H

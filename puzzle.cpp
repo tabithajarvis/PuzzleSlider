@@ -73,8 +73,16 @@ void Puzzle::movePiece(PuzzlePiece *piece)
 {
     if(canMove(piece))
     {
-    // Rebuild the grid
-    this->swap(piece, this->getLastPiece());
+        this->swap(piece, this->getLastPiece());
+
+        if(piece->getCurrentIndex() == piece->getFinalIndex())
+        {
+            piece->setStyleSheet("* {background: rgb(100, 200, 100);}");
+        }
+        else
+        {
+            piece->setStyleSheet("* {background: rgb(200, 200, 200)};");
+        }
     }
 }
 
@@ -116,6 +124,7 @@ void Puzzle::pieceClicked(PuzzlePiece *piece)
     qDebug() << "pieceClicked entered.";
     movePiece(piece);
     rebuildGrid();
+    checkWin();
 }
 
 void Puzzle::rebuildGrid()
@@ -130,8 +139,19 @@ void Puzzle::rebuildGrid()
         grid->addWidget(pieces[i], i/this->getPuzzleSize(), i%this->getPuzzleSize(), 1, 1, Qt::AlignCenter);
     }
 
-//    grid->update();
+}
 
+void Puzzle::checkWin()
+{
+    for(uint i=0; i<pieces.size(); i++)
+    {
+        if(pieces[i]->getCurrentIndex() != pieces[i]->getFinalIndex())
+        {
+            return;
+        }
+    }
+
+    emit completed();
 }
 
 void Puzzle::startNewGame()
