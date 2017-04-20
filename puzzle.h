@@ -21,6 +21,8 @@ public:
     PuzzlePiece * getLastPiece();
     void setLastPiece(PuzzlePiece *);
     QGridLayout *getGrid();
+    QSize sizeHint();
+    QSize minimumSizeHint();
 
 public slots:
     void startNewGame();

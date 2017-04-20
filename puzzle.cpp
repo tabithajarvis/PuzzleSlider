@@ -5,14 +5,14 @@
 
 Puzzle::Puzzle(QMainWindow *parent, uint size) : QWidget(parent)
 {
-    QWidget::setGeometry(
+   QWidget::setGeometry(
         parent->width()/3,
         parent->height()/10,
         uint(float(parent->width())*0.6f),
         uint(float(parent->height())*0.8f));
 
-    this->puzzleSize = size;
-    this->grid = new QGridLayout(this);
+    puzzleSize = size;
+    grid = new QGridLayout(this);
 
     PuzzlePiece *lbl;
 
@@ -29,6 +29,20 @@ Puzzle::Puzzle(QMainWindow *parent, uint size) : QWidget(parent)
     lbl->hide();
     this->setLastPiece(lbl);
 
+}
+
+QSize Puzzle::sizeHint()
+{
+    QSize hint = QSize(this->width(), this->height());
+    updateGeometry();
+    return hint;
+}
+
+QSize Puzzle::minimumSizeHint()
+{
+    QSize hint = QSize(this->width(), this->height());
+    updateGeometry();
+    return hint;
 }
 
 QGridLayout *Puzzle::getGrid()
